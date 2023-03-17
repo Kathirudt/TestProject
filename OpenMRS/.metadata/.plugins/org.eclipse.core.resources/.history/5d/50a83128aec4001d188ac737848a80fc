@@ -1,0 +1,32 @@
+package webapp;
+
+public class Objrepositary {
+
+	String PID;
+	String finalBMI;
+	String usrname="Admin";
+	String appurl="https://qa-refapp.openmrs.org/openmrs/login.htm";
+	String password="Admin123";
+	String patientname="Raja";
+	String gender="Male";
+	String patientmiddelname="K";
+	String patientfamilyname="King";
+	String DOBday="22,";
+	String Month="May,";
+	String DOByear="2002";
+	String Address1="First Street Ch";
+	String Address2="Covai";
+	String city="Chennai";
+	String state="Tamilnadu";
+	String country="India";
+	String pincode="123454";
+	String phone="1234567891";
+	String uploadtext="Testing purpose";
+	String today ="16.Mar.2023";
+	
+	String height="170";
+	String weight ="72";
+	
+	
+	
+}

@@ -1,0 +1,17 @@
+package webapp;
+
+public class Objrepositary {
+
+	String PID;
+	String finalBMI;
+	String usrname="Admin";
+	String appurl="https://qa-refapp.openmrs.org/openmrs/login.htm";
+	String password="Admin123";
+	String patientname="";
+	String patientmiddelname="";
+	String patientfamilyname="";
+	String password="Admin123";
+	String patientname="";
+	
+	
+}

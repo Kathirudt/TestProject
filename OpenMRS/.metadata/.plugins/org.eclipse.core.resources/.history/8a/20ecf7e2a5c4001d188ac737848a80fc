@@ -1,0 +1,9 @@
+package webapp;
+
+public class Objrepositary {
+
+	String PID;
+	String finalBMI;
+	String usrname="Admin";
+	
+}

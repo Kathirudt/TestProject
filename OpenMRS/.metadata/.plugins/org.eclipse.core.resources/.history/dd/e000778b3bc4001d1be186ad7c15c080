@@ -1,0 +1,480 @@
+package webapp;
+
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Testsuite {
+
+	public static void setClipboardData(String string) {
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+	}
+
+	public static ChromeDriver driver;
+	@BeforeMethod
+
+	public void driversetup() throws Exception{
+		
+		ChromeOptions o = new ChromeOptions();
+		o.addArguments("--remote-allow-origins=*");
+		o.setAcceptInsecureCerts(true);
+		//o.setExperimentalOption("debuggerAddress", "localhost:28031");
+		  driver = new ChromeDriver(o);
+		 	}
+
+	public void takeSnapShot (WebDriver webdriver, String fileWithPath) throws Exception{ 
+		TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+		File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+	File DestFile=new File(fileWithPath);
+	FileUtils.copyFile(SrcFile, DestFile);
+
+	}
+
+	// Redirect to https://qa-refapp.openmrs.org/openmrs/login.htm
+
+	@Test
+	public void openurl() throws Exception{
+	driver.get("https://qa-refapp.openmrs.org/openmrs/login.htm");
+	driver.manage().window().maximize();
+
+	this.takeSnapShot (driver, "E:\\New folder\\test.jpeg") ;
+
+	Reporter.log("TC1-Application Opened");
+	}
+
+// Enter Username  and password 
+@Test
+
+	public void Enterusrpwd() throws Exception{
+  
+	WebElement username = driver.findElement(By.id("username"));
+	username.click();
+	username.sendKeys("Admin");
+
+	WebElement pwd= driver.findElement(By.id("password"));
+
+	pwd.click();
+
+	pwd.sendKeys("Admin123");
+
+	Reporter.log("TC2- Username and password Entered"); 
+	this.takeSnapShot (driver, "E:\\New folder\\test1.jpeg");
+}
+@Test
+public void locationsel() throws Exception{ 
+	driver.findElement(By.id("Registration Desk")).click();
+	driver.findElement(By.id("loginButton")).click();
+
+
+WebElement dashboardalert = driver.findElement(By.xpath("//*[contains(text(), 'Logged in as Super User')]")); 
+if (dashboardalert!= null)
+{
+dashboardalert.getText();
+
+System.out.println("Actual Alert message:" + dashboardalert);
+String ExpectedAlert = "Logged in as Super User (admin) at Registration Desk.";
+
+System.out.println("Expected Alert message:" + "Logged in as Super User (admin) at Registration Desk");
+Assert.assertNotEquals(dashboardalert, ExpectedAlert, "Application Login Failed");
+}
+else
+{
+System.out.println("Application is not logged in. Please try again");
+}
+System.out.println("Application is logged Successfully");
+driver.findElement(By.id("reference application-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerpatient-homepageLink-extension")).click();
+
+//Enter Demographics Information
+
+WebElement Namefield = driver.findElement (By.xpath("//*[@id=\"formBreadcrumb\"]/li[1]/ul/li[1]/span"));
+Namefield.click();
+System.out.println("Get into Name Fields");
+
+WebElement GivenName = driver.findElement(By.xpath("//input[@name='givenName']"));
+GivenName.click();
+GivenName.sendKeys("MSD");
+System.out.println("Moving to middel Name");
+WebElement MiddelName = driver.findElement(By.xpath("//input[@name='middleName']"));
+MiddelName.click();
+MiddelName.sendKeys("AA");
+WebElement FamilyName = driver.findElement(By.xpath("//input[@name='familyName']"));
+FamilyName.click();
+FamilyName.sendKeys("BB");
+WebElement NextButton= driver.findElement(By.xpath("//*[@id=\"next-button\"]/icon"));
+NextButton.click();
+driver.findElement(By.xpath("//*[@id=\"gender-field\"]/option[1]")).click();
+NextButton.click();
+WebElement Day = driver.findElement(By.xpath("//*[@id=\"birthdateDay-field\"]"));
+Day.click(); 
+Day.sendKeys("22");
+WebElement Month = driver.findElement(By.xpath("//[@id=\"birthdateMonth-field\"]/option[6]"));
+Month.click();
+WebElement Year = driver.findElement(By.xpath("//[@id=\"birthdateYear-field\"]"));
+Year.click();
+Year.sendKeys("2002"); 
+NextButton.click();
+
+// Enter Contact Information:
+
+WebElement address1 = driver.findElement(By.xpath("//*[@id=\"address1\"]"));
+
+address1.click();
+
+address1.sendKeys("Abc Chennai");
+
+WebElement address2 = driver.findElement(By.xpath("//*[@id=\"address2\"]"));
+address2.click();
+address2.sendKeys("Street Volly");
+
+
+
+WebElement cityVillage =driver.findElement(By.xpath("//*[@id=\"cityVillage\"]"));
+
+cityVillage.click();
+
+cityVillage.sendKeys("Chennai");
+
+WebElement stateProvince = driver.findElement(By.xpath("//*[@id=\"stateProvince\"]")); 
+stateProvince.click();
+stateProvince.sendKeys("Tamilnadu");
+
+WebElement country = driver.findElement(By.xpath("//*[@id=\"country\"]"));
+country.click();
+country.sendKeys("india");
+
+
+WebElement postalCode= driver.findElement(By.xpath("//*[@id=\"postalCode\"]"));
+postalCode.click();
+
+postalCode.sendKeys("123456");
+NextButton.click();
+
+WebElement phoneNumber = driver.findElement(By.xpath("//input[@name='phoneNumber']"));
+phoneNumber.click();
+
+phoneNumber.sendKeys("123456789");
+
+System.out.println("Completed Mobile");
+NextButton.click();
+
+//Ignoring Relationships Details Page NextButton.click();
+NextButton.click();
+// Verification of Demographics & Contact Information
+
+System.out.println("Final Review Submitted");
+
+WebElement NameVerification= driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[1]")); 
+System.out.println(NameVerification.getText());
+
+//String NameCheck[] = NameVerification.getText().split(","); 
+Assert.assertEquals("Name: MSD, AA, BB", NameVerification.getText());
+
+
+
+WebElement GenderVerification= driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[2]"));
+System.out.println(GenderVerification.getText()); 
+Assert.assertEquals("Gender: Male", GenderVerification.getText());
+
+WebElement dobVerification= driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[3]"));
+System.out.println(dobVerification.getText()); 
+Assert.assertEquals("Birthdate: 22, May, 2002", dobVerification.getText());
+
+WebElement addVerification= driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[4]"));
+System.out.println(addVerification.getText());
+
+Assert.assertEquals("Address: Abc Chennai, Street Volly, Chennai, Tamilnadu, India, 123456",
+
+addVerification.getText());
+
+WebElement phnVerification= driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[5]"));
+System.out.println(phnVerification.getText());
+Assert.assertEquals("Phone Number: 123456789", phnVerification.getText());
+
+driver.findElement(By.xpath("//input[@id='submit']")).click();
+
+//verify Patient details page is redirected
+
+Thread.sleep(5000);
+
+WebElement PDpage= driver.findElement(By.xpath("//*[@id=\"content\"]/div[9]/div[2]/div/ul/h3")); 
+System.out.println(PDpage.getText());
+Assert.assertEquals("General Actions", PDpage.getText());
+
+WebElement DOBCheck= driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/diy/div[2]/span[2]"));
+
+System.out.println(DOBCheck.getText().substring(0,3).trim()); 
+String ExpectedDOBYear = DOBCheck.getText().substring(0,3).trim();
+
+LocalDate dob = LocalDate.of(2002, 05, 22); 
+LocalDate curDate = LocalDate.now();
+
+Period period = Period.between (dob, curDate);
+
+System.out.println(period.getYears());
+
+String ActualDOBYear = String.valueOf(period.getYears());
+Assert.assertEquals(ExpectedDOBYear, ActualDOBYear);
+
+driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createVisit\"]/div/div[2]")).click();
+driver.findElement(By.xpath("//*[@id=\"start-visit-with-visittype-confirm\"]")).click();
+
+driver.manage().timeouts().implicitlyWait (Duration.ofSeconds (30));
+System.out.println("Before uploading Attachment");
+
+driver.findElement(By.xpath("//*[@id=\"attachments.attachments.visitActions.default\"]")).click();
+driver.manage().timeouts().implicitlyWait (Duration.ofSeconds (30));
+
+driver.findElement(By.xpath("//*[@id=\"visit-documents-dropzone\"]")).click();
+
+setClipboardData("E:\\New folder\\code.txt");
+
+
+Robot robot = new Robot();
+
+Thread.sleep(300);
+robot.keyPress (KeyEvent.VK_CONTROL);
+Thread.sleep(300);
+
+robot.keyPress (KeyEvent.VK_V);
+
+Thread.sleep(300);
+
+robot.keyRelease (KeyEvent.VK_V);
+Thread.sleep(300);
+
+robot.keyRelease (KeyEvent.VK_CONTROL);
+Thread.sleep(300);
+robot.keyPress (KeyEvent.VK_ENTER);
+Thread.sleep(300);
+robot.keyRelease (KeyEvent.VK_ENTER); 
+Thread.sleep(300);
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+System.out.println("Before upload");
+
+driver.findElement(By.xpath("//*[@id=\"att-page-main\"]/div[1]/att-file-upload/div[3]/div/div[2]/textarea")).sendKeys( "Test");
+
+System.out.println("Before Click");
+
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(300));
+driver.findElement(By.xpath("//*[@id=\"att-page-main\"]/div[1]/att-file-upload/div[3]/div/div[2]/span/button[1]")).click();
+
+System.out.println("After upload"); 
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+WebElement toasttext = driver.findElement(By.xpath("/html/body/div[2]"));
+System.out.println(toasttext.getText()); 
+Assert.assertEquals("The attachment was successfully uploaded.", toasttext.getText());
+
+driver.findElement(By.xpath("//*[@id=\"breadcrumbs\"]/li[2]/a")).click();
+
+Boolean Display = driver.findElement(By.xpath("//*[@id=\"att-fragment-dashboard-widget\"]/att-gallery/div/div/div[1]/att-thumbnail/div/div[2]/div")).isDisplayed();
+System.out. println("Attachment displayed as :"+Display);
+
+WebElement dateCheck = driver.findElement(By.xpath( "//a[@class='ng-binding']"));
+
+System.out.println(dateCheck.getText().trim()); Assert.assertEquals("16.Mar.2023", dateCheck.getText().trim());
+
+WebElement uploadflag =driver.findElement(By.xpath("//div[@class='tag ng-binding ng-scope']")); System.out.println(uploadflag.getText().trim());
+
+Assert.assertEquals("Attachment Upload", uploadflag.getText().trim()); 
+//End Visit
+
+driver.findElement(By.xpath("//i[@class='icon-off']")).click();
+
+driver.findElement(By.xpath("//*[@id='end-visit-dialog']/div[2]/button[1]")).click();
+
+	//Start Visit	
+driver.findElement(By.xpath("//[@id=\"org.openmrs.module.coreapps.createVisit\"]/div/div[2]")).click();
+driver.findElement(By.xpath("//[@id=\"start-visit-with-visittype-confirm\"]")).click();
+//Click Vitals
+driver.findElement(By.xpath("//*[@id=\"referenceapplication.realTime.vitals\"]")).click(); 
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+//Enter Height
+
+		
+
+		driver.findElement(By.xpath("//*[@id=\"w8\"]")).click();
+
+		driver.findElement(By.xpath("//[@id=\"w8\"]")).sendKeys("170"); 
+		driver.findElement(By.xpath("//[@id='next-button']/icon")).click();
+		driver.findElement(By.xpath("//*[@id=\"w10\"]")).click();
+		driver.findElement(By.xpath("//[@id=\"w10\"]")).sendKeys("72"); 
+		driver.findElement(By.xpath("//[@id='next-button']/icon")).click();
+
+		//BMI Check
+
+		WebElement bmiCheck = driver.findElement(By.xpath("//*[@id=\"calculated-bmi\"]"));
+
+		System.out.println(bmiCheck.getText().trim()); 
+		String ExpectedbmiCheck=bmiCheck.getText().trim();
+
+		double height = 170;
+
+		double weight = 72;
+
+		double bmi = weight / ((height * height)/10000);
+		String finalBMI= String.format("%.1f", bmi);
+
+		System.out.println("Calculated bmi is"+finalBMI);
+
+		Thread.sleep(50);
+
+		driver.findElement(By.xpath("//*[@id='next-button']/icon")).click(); 
+		Assert.assertEquals(finalBMI, ExpectedbmiCheck);
+
+		
+		
+		//Click Save Form
+		driver.findElement(By.xpath("//*[@id=\"save-form\"]")).click();
+
+		driver.findElement(By.xpath(" //*[@id=\"confirmationQuestion\"]/p[1]/button")).click();
+
+		//Click End Visit	
+
+		driver.findElement(By.xpath("//i[@class='icon-off']")).click(); 
+		driver.findElement(By.xpath("//*[@id='end-visit-dialog']/div[2]/button[1]")).click();
+
+		//redirect to Patient details page 
+		driver.manage().timeouts().implicitlyWait (Duration.ofSeconds (30));
+
+		driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/div/div[1]/h1")).click();
+
+		//Verify Height
+
+		WebElement VerfiyH = driver.findElement(By.xpath("//*[@id=\"height\"]/span[1]")); 
+		System.out.println(VerfiyH.getText().trim());
+
+		String Expectedheight=VerfiyH.getText().trim();
+
+		Assert.assertEquals(Expectedheight, VerfiyH.getText().trim());
+
+		//Verify weight
+
+		WebElement Verfiyw= driver.findElement(By.xpath("//*[@id=\"weight\"]/span[1]")); 
+		System.out.println(Verfiyw.getText().trim());
+		String Expectedweight=Verfiyw.getText().trim();
+
+		Assert.assertEquals(Expectedweight, Verfiyw.getText().trim());
+		//Verify BMI
+		WebElement Verfiybmi = driver.findElement(By.xpath("//*[@id=\"calculated-bmi\"]"));
+
+		System.out.println(Verfiybmi.getText().trim());
+
+		Assert.assertEquals(finalBMI, Verfiybmi.getText().trim());
+
+		//Verfiy Recent Visit has one more new entry for current date with Vitalstag
+
+		//to be check T
+
+		WebElement Vitalstag = driver.findElement(By.xpath("//div[@class='tag ng-binding ng-scope'][1]"));
+		System.out.println(Vitalstag.getText().trim());
+		Assert.assertEquals("Vitals", Vitalstag.getText().trim());
+
+		WebElement VitalstagdateCheck = driver.findElement(By.xpath("//a[@class='ng-binding']"));
+		System.out.println(VitalstagdateCheck.getText().trim());
+		Assert.assertEquals("16.Mar.2023", VitalstagdateCheck.getText().trim());
+
+		//Merge Visit
+
+		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.mergeVisits\"]/div/div[1]/i")).click();
+
+		driver.findElement(By.xpath("//input[@type=\"checkbox\"][1]")).click();
+		driver.findElement(By.xpath("/html/body/div/div[3]/form/table/tbody/tr[2]/td[1]/input")).click();
+
+		//click on Merge SelectedVisits button
+ driver.findElement(By.xpath("//*[@id-\"mergeVisitsBtn\"]")).click();
+
+		System.out.println("click on Merge SelectedVisits button-Success");
+
+		//Redirect to patient details page by clicking on Return button
+
+		driver.findElement(By.xpath("//*[@id-\"content\"]/form/div/input[1]")).click();
+		//Verfiy Recent Visit has become one entry for current date withVitals, Attachment Upload tag.
+		WebElement VitalsAttachmenttag= driver.findElement(By.xpath("//div[@class='tag ng-binding ng-scope']"));
+
+		System.out.println(VitalsAttachmenttag.getText().trim());
+
+		Assert.assertEquals("Vitals, Attachment Upload", VitalsAttachmenttag.getText().trim()); 
+		//Click on Add Past Visit and verify the future date is not clickable in thedate picker.
+
+		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createRetrospectiveVisit\"]/div/div[1]/i")).click();
+//Date Picker
+		WebElement datewidgetFrom = driver.findElement(By.xpath("/html/body/div[2]/div[3]")); 
+		List<WebElement> columns=datewidgetFrom.findElements (By.tagName("td")); 
+		// System.out.println("Date" +columns.indexOf (columns));
+
+		driver.findElement(By.xpath("//*[@id=\"retrospective-visit-creation-dialog\"]/div[2]/button[1]")).click(); 
+		// pick Pickpatient10 for using deletion
+
+		WebElement PickpatientID =driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[2]/div/span"));
+		System.out.println(PickpatientID.getText().trim());
+
+		String PID= PickpatientID.getText().trim(); 
+		//Click on Delete Patient and provide the reason.
+
+		driver.findElement(By.xpath("//*[@id=\"org.openers.module.coreapps.deletePatient\"]/div/div[1]/1")).click();
+
+		WebElement Deletereason= driver.findElement(By.xpath("//*[@id=\"delete-reason\"]"));
+        Deletereason.click();
+        Deletereason.sendKeys("Testing");
+
+		driver.findElement(By.xpath("//*[@id=\"delete-patient-creation-dialog\"]/div[2]/button[1]")).click();
+
+		// Click on confirm button and verify the toaster message.
+try {
+		WebDriverWait wait = new WebDriverWait (driver, Duration.ofSeconds (30)); 
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Patient has been deleted successfully')]")));
+
+		}catch(Throwable e) {
+
+		System.err.println("Error while waiting for the notification "+ e.getMessage());
+
+		}
+
+		Thread.sleep(500);
+
+		//patientID Search
+
+		WebElement SearchpatientID = driver.findElement(By.xpath("//*[@id=\"patient-search\"]")); 
+		SearchpatientID.sendKeys(PID); 
+		Thread.sleep(500);
+
+		
+		//Delete Record Check
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds (60));
+
+		Thread.sleep(1000);
+		WebElement Deletedrecordchk = driver.findElement(By.xpath("//*[@id=\"patient-search-results-table\"]/tbody/tr/td")); 
+		System.out.println(Deletedrecordchk.getText().trim());
+		Assert.assertEquals("No matching records found", Deletedrecordchk.getText().trim());
+}
+}

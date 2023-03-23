@@ -7,14 +7,15 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Calendar;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -25,23 +26,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Testsuite extends Objrepositary {
 
-	public static void setClipboardData(String string) {
-		StringSelection stringSelection = new StringSelection(string);
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	public static ChromeDriver driver;
 
-	}
-
-public static  ChromeDriver driver ;
-
-@Test(priority=1)
+	@BeforeTest
 
 	public void driversetup() throws Exception {
 
@@ -49,19 +43,23 @@ public static  ChromeDriver driver ;
 		o.addArguments("--remote-allow-origins=*");
 		o.setAcceptInsecureCerts(true);
 		// o.setExperimentalOption("debuggerAddress", "localhost:49433");
-		 WebDriverManager.chromedriver().setup();
-		   driver =new ChromeDriver(o);
-		   driver.get(appurl);
-		  driver.manage().window().maximize();
-				
-		  Capabilities c = driver.getCapabilities(); Map<String, Object> m = c.asMap();
-		  m.forEach((key, value) -> { System.out.println("Key is: " + key +
-		  "Value is: " + value); });
-		 
-		}
+		WebDriverManager.chromedriver().setup();
+		driver = new ChromeDriver(o);
 
+		/*
+		 * Capabilities c = driver.getCapabilities(); Map<String, Object> m = c.asMap();
+		 * m.forEach((key, value) -> { System.out.println("Key is: " + key +
+		 * "Value is: " + value); });
+		 */
 
- 
+	}
+
+	public static void setClipboardData(String string) {
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+	}
+
 	public void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
 		TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
 		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
@@ -72,79 +70,84 @@ public static  ChromeDriver driver ;
 
 	// Redirect to https://qa-refapp.openmrs.org/openmrs/login.htm
 
-	@Test (priority=3)
+	@Test(priority = 1)
 	public void openurl() throws Exception {
-		
-	//	driver.get(appurl);
 
-		this.takeSnapShot(driver,destpath+"TC1.jpeg");
+		driver.get(appurl);
+		driver.manage().window().maximize();
+
+		this.takeSnapShot(driver, destpath + "TC1.jpeg");
 
 		Reporter.log("TC1-Application Opened");
-		
+
 	}
 
 // Enter Username  and password 
-	@Test (priority=4)
+	@Test(priority = 2)
 	public void Enterusrpwd() throws Exception {
-		
+
 		WebElement username = driver.findElement(By.id("username"));
 		username.click();
 		username.sendKeys(usrname);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3000));
 		WebElement pwd = driver.findElement(By.id("password"));
 		pwd.click();
 		pwd.sendKeys(password);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3000));
 		Reporter.log("TC2- Username and password Entered");
-		this.takeSnapShot(driver, destpath+"TC2.jpeg");
+		this.takeSnapShot(driver, destpath + "TC2.jpeg");
 	}
 
-	@Test (priority=5)
+	@Test(priority = 3)
 	public void locationsel() throws Exception {
 		driver.findElement(By.id("Registration Desk")).click();
 		driver.findElement(By.id("loginButton")).click();
 		Reporter.log("TC3- Pick Location and Application logged in");
-		this.takeSnapShot(driver, destpath+"TC3.jpeg");
-}
-@Test (priority=6)
-public void verifydashboard() throws Exception {
-		
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC3.jpeg");
+	}
+
+	@Test(priority = 4)
+	public void verifydashboard() throws Exception {
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		WebElement dashboardalert = driver.findElement(By.xpath("//*[contains(text(), 'Logged in as Super User')]"));
 		if (dashboardalert != null) {
 			dashboardalert.getText();
-			System.out.println("Actual Alert message:" + dashboardalert);
-			String ExpectedAlert = "Logged in as Super User (admin) at Registration Desk.";
-
-			System.out.println("Expected Alert message:" + "Logged in as Super User (admin) at Registration Desk");
-			Assert.assertNotEquals(dashboardalert, ExpectedAlert, "Application Login Failed");
+			System.out.println("Actual Alert message:" + dashboardalert.getText());
+	
+			Assert.assertEquals(dashboardalert.getText(), ExpectedAlert);
 		} else {
 			System.out.println("Application is not logged in. Please try again");
+			driver.close();
 		}
-		
-		Reporter.log("TC4- Application is logged Successfully");
-		this.takeSnapShot(driver, destpath+"TC4.jpeg");
-}
-@Test (priority=7)
-public void registerpatient() throws Exception {
-	
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
-	driver.findElement(By.id(
-				"reference application-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerpatient-homepageLink-extension"))
-				.click();
-		Reporter.log("TC5- Clicked on Register Patient");
-		this.takeSnapShot(driver, destpath+"TC5.jpeg");
 
-}
+		Reporter.log("TC4- Application is logged Successfully");
+		this.takeSnapShot(driver, destpath + "TC4.jpeg");
+		
+	}
+
+	@Test(priority=5)
+	public void registerp() throws Exception {
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+		System.out.println("Get into homepage");
+		//driver.findElement(By.id("reference application-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerpatient-homepageLink-extension")).click();
+			WebElement regbutton= driver.findElement(By.xpath("(//a[@type='button'])[4]"));
+			regbutton.click();
+		
+		Reporter.log("TC5- Clicked on Register Patient");
+		this.takeSnapShot(driver, destpath + "TC5.jpeg");
+
+	}
+
 //Enter Demographics Information
-@Test(priority=8)
-public void Demographicsinfo() throws Exception {
-	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+	@Test(priority = 6)
+	public void Demographicsinfo() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		WebElement Namefield = driver.findElement(By.xpath("//*[@id=\"formBreadcrumb\"]/li[1]/ul/li[1]/span"));
 		Namefield.click();
 		System.out.println("Get into Name Fields");
-        
+
 		WebElement GivenName = driver.findElement(By.xpath("//input[@name='givenName']"));
 		GivenName.click();
 		GivenName.sendKeys(patientname);
@@ -154,7 +157,7 @@ public void Demographicsinfo() throws Exception {
 		MiddelName.sendKeys(patientmiddelname);
 		WebElement FamilyName = driver.findElement(By.xpath("//input[@name='familyName']"));
 		FamilyName.click();
-		FamilyName.sendKeys("patientfamilyname");
+		FamilyName.sendKeys(patientfamilyname);
 		WebElement NextButton = driver.findElement(By.xpath("//*[@id=\"next-button\"]/icon"));
 		NextButton.click();
 		driver.findElement(By.xpath("//*[@id=\"gender-field\"]/option[1]")).click();
@@ -162,9 +165,9 @@ public void Demographicsinfo() throws Exception {
 		WebElement Day = driver.findElement(By.xpath("//*[@id=\"birthdateDay-field\"]"));
 		Day.click();
 		Day.sendKeys(DOBday);
-		WebElement Month = driver.findElement(By.xpath("//[@id=\"birthdateMonth-field\"]/option[6]"));
+		WebElement Month = driver.findElement(By.xpath("//*[@id=\"birthdateMonth-field\"]/option[6]"));
 		Month.click();
-		WebElement Year = driver.findElement(By.xpath("//[@id=\"birthdateYear-field\"]"));
+		WebElement Year = driver.findElement(By.xpath("//*[@id=\"birthdateYear-field\"]"));
 		Year.click();
 		Year.sendKeys(DOByear);
 		NextButton.click();
@@ -212,65 +215,84 @@ public void Demographicsinfo() throws Exception {
 //Ignoring Relationships Details Page
 		NextButton.click();
 		Reporter.log("TC6- Logged Demographics Information");
-		this.takeSnapShot(driver, destpath+"TC6.jpeg");
-}
+		this.takeSnapShot(driver, destpath + "TC6.jpeg");
+	}
 
-@Test(priority=9)
-public void verifyDemographics() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+	@Test(priority = 7)
+	public void verifyDemographics() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 // Verification of Demographics & Contact Information
 		System.out.println("Final Review Submitted");
 		WebElement NameVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[1]"));
 		System.out.println(NameVerification.getText());
-        String actualresultname= patientname+patientmiddelname+patientfamilyname;
-
-		Assert.assertEquals("Name" +actualresultname, NameVerification.getText());
+		
+		List<String> listname=Arrays.asList("Name: "+patientname,patientmiddelname,patientfamilyname);
+		String str =listname.stream().collect(Collectors.joining(", "));
+		System.out.println(str);
+		Assert.assertEquals(str, NameVerification.getText());
 
 		WebElement GenderVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[2]"));
 		System.out.println(GenderVerification.getText());
-		String actualresultgender= gender;
+
+
+		List<String> listgender=Arrays.asList("Gender: "+gender);
+		String actualresultgender =listgender.stream().collect(Collectors.joining(", "));
+		System.out.println(actualresultgender);
+		
 		Assert.assertEquals(actualresultgender, GenderVerification.getText());
 
 		WebElement dobVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[3]"));
 		System.out.println(dobVerification.getText());
-		String actualresultDOB= DOBday+Month+DOByear;
-		Assert.assertEquals("Birthdate"+actualresultDOB, dobVerification.getText());
+			
+		List<String> listdob=Arrays.asList("Birthdate: "+DOBday,Month,DOByear);
+		String actualresultDOB =listdob.stream().collect(Collectors.joining(", "));
+		System.out.println(actualresultDOB);
+		
+		
+		Assert.assertEquals(actualresultDOB, dobVerification.getText());
 
 		WebElement addVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[4]"));
 		System.out.println(addVerification.getText());
-		String actualresultadd= Address1+Address2+city+state+country+pincode;
-		Assert.assertEquals("Address:"+actualresultadd,addVerification.getText());
+		
+		
+		List<String> listadd=Arrays.asList("Address: "+Address1,Address2,city,state,country,pincode);
+		String actualresultadd =listadd.stream().collect(Collectors.joining(", "));
+		System.out.println(actualresultadd);
+		
+		Assert.assertEquals(actualresultadd, addVerification.getText());
 
 		WebElement phnVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[5]"));
 		System.out.println(phnVerification.getText());
-		String actualresultaphn= phone;
-		Assert.assertEquals("Phone Number:"+actualresultaphn, phnVerification.getText());
+		
+		
+		List<String> listphone=Arrays.asList("Phone Number: "+phone);
+		String actualresultaphn =listphone.stream().collect(Collectors.joining(", "));
+		System.out.println(actualresultaphn);
+		
+		Assert.assertEquals(actualresultaphn, phnVerification.getText());
 		Reporter.log("TC7- Verify Demographiices in confirm page Screen");
-		this.takeSnapShot(driver, destpath+"TC7.jpeg");
-}
-
-@Test(priority=10)
-public void patientdetailsscreen() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC7.jpeg");
+	}
+	
+	@Test(priority = 8)
+	public void verifyage() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		driver.findElement(By.xpath("//input[@id='submit']")).click();
 
 //verify Patient details page is redirected
 
-		Thread.sleep(5000);
-
 		WebElement PDpage = driver.findElement(By.xpath("//*[@id=\"content\"]/div[9]/div[2]/div/ul/h3"));
 		System.out.println(PDpage.getText());
-		Assert.assertEquals("General Actions", PDpage.getText());
+		Assert.assertEquals(pdpagetext, PDpage.getText());
 
-		WebElement DOBCheck = driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/diy/div[2]/span[2]"));
+		WebElement DOBCheck = driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/div/div[2]/span[2]"));
 
 		System.out.println(DOBCheck.getText().substring(0, 3).trim());
 		String ExpectedDOBYear = DOBCheck.getText().substring(0, 3).trim();
-       
-		
-		LocalDate dob = LocalDate.of(Integer.parseInt(DOByear), Integer.parseInt(Month),Integer.parseInt(DOBday) );
+
+		LocalDate dob = LocalDate.of(Integer.valueOf(DOByear), Integer.valueOf(Monthint), Integer.valueOf(DOBday));
 		LocalDate curDate = LocalDate.now();
 
 		Period period = Period.between(dob, curDate);
@@ -280,147 +302,158 @@ public void patientdetailsscreen() throws Exception {
 		String ActualDOBYear = String.valueOf(period.getYears());
 		Assert.assertEquals(ExpectedDOBYear, ActualDOBYear);
 
+		Reporter.log("TC8- DOB Verification");
+		this.takeSnapShot(driver, destpath + "TC8.jpeg");
 
-Reporter.log("TC8- DOB Verification");
-		this.takeSnapShot(driver, destpath+"TC8.jpeg");
-		
-}
-@Test(priority=11)
-public void StartVisit() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+	}
+
+	@Test(priority = 9)
+	public void StartVisit() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
 
 		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createVisit\"]/div/div[2]")).click();
 		driver.findElement(By.xpath("//*[@id=\"start-visit-with-visittype-confirm\"]")).click();
 		Reporter.log("TC9- Start and Confirm Visit");
-		this.takeSnapShot(driver, destpath+"TC9.jpeg");
-		
-}
-@Test(priority=12)
-public void Attachmentupload() throws Exception {
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		this.takeSnapShot(driver, destpath + "TC9.jpeg");
+
+	}
+
+	@Test(priority = 10)
+	public void Attachmentupload() throws Exception {
 		System.out.println("Before uploading Attachment");
-
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(300));
+		
 		driver.findElement(By.xpath("//*[@id=\"attachments.attachments.visitActions.default\"]")).click();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		
 
-		driver.findElement(By.xpath("//*[@id=\"visit-documents-dropzone\"]")).click();
-
-		setClipboardData(destpath+"code.txt");
-
-		Robot robot = new Robot();
-
-		Thread.sleep(300);
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		Thread.sleep(300);
-
-		robot.keyPress(KeyEvent.VK_V);
-
-		Thread.sleep(300);
-
-		robot.keyRelease(KeyEvent.VK_V);
-		Thread.sleep(300);
-
-		robot.keyRelease(KeyEvent.VK_CONTROL);
-		Thread.sleep(300);
-		robot.keyPress(KeyEvent.VK_ENTER);
-		Thread.sleep(300);
-		robot.keyRelease(KeyEvent.VK_ENTER);
-		Thread.sleep(300);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		System.out.println("Before upload");
-
+		
+			System.out.println("Try Upload");
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//*[@id=\"visit-documents-dropzone\"]")).click();
+			System.out.println("Try set path");
+			setClipboardData("E:\\New folder\\code.txt");
+			Robot robot = new Robot();
+			Thread.sleep(300);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			Thread.sleep(300);
+			robot.keyPress(KeyEvent.VK_V);
+			Thread.sleep(300);
+			robot.keyRelease(KeyEvent.VK_V);
+			Thread.sleep(300);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			Thread.sleep(300);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			Thread.sleep(300);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			Thread.sleep(300);
+	
+			System.out.println("Before upload");
+			
+		
+			Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[@id=\"att-page-main\"]/div[1]/att-file-upload/div[3]/div/div[2]/textarea"))
 				.sendKeys(uploadtext);
 
-		System.out.println("Before Click");
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(300));
+	
+		Thread.sleep(100);
 		driver.findElement(
 				By.xpath("//*[@id=\"att-page-main\"]/div[1]/att-file-upload/div[3]/div/div[2]/span/button[1]")).click();
 
 		System.out.println("After upload");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		Reporter.log("TC10- Attachment Upload");
-		this.takeSnapShot(driver, destpath+"TC10.jpeg");
-}
-@Test(priority=13)
-public void verifytoastermsg() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC10.jpeg");
+	}
+
+	@Test(priority = 11)
+	public void verifytoastermsg() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		WebElement toasttext = driver.findElement(By.xpath("/html/body/div[2]"));
 		System.out.println(toasttext.getText());
-		Assert.assertEquals("The attachment was successfully uploaded.", toasttext.getText());
+		Assert.assertEquals(actualtoastmsg, toasttext.getText());
 		Reporter.log("TC11- Verified Toaster Message");
-		this.takeSnapShot(driver, destpath+"TC11.jpeg");
-}
+		this.takeSnapShot(driver, destpath + "TC11.jpeg");
+	}
 
-@Test(priority=14)
-public void RedirectPDscreen() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(500));
+	@Test(priority = 12)
+	public void RedirectPDscreen() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(500));
 		driver.findElement(By.xpath("//*[@id=\"breadcrumbs\"]/li[2]/a")).click();
 		Reporter.log("TC12- Redirect to Patient Details Screen");
-		this.takeSnapShot(driver, destpath+"TC12.jpeg");
-}
-@Test(priority=15)
-public void Verifyattachment() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC12.jpeg");
+	}
+
+	@Test(priority = 13)
+	public void Verifyattachment() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		Boolean Display = driver.findElement(By.xpath(
 				"//*[@id=\"att-fragment-dashboard-widget\"]/att-gallery/div/div/div[1]/att-thumbnail/div/div[2]/div"))
 				.isDisplayed();
 		System.out.println("Attachment displayed as :" + Display);
 		Reporter.log("TC13- Verify Attachment");
-		this.takeSnapShot(driver, destpath+"TC13.jpeg");
-		
-}
-@Test(priority=16)
-public void verifyattachmenttag() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
-		WebElement dateCheck = driver.findElement(By.xpath("//a[@class='ng-binding']"));
-        
-		System.out.println(dateCheck.getText().trim());
-		Assert.assertEquals(today, dateCheck.getText().trim());
+		this.takeSnapShot(driver, destpath + "TC13.jpeg");
 
+	}
+
+	@Test(priority = 14)
+	public void verifyattachmenttag() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		WebElement dateCheck = driver.findElement(By.xpath("//a[@class='ng-binding']"));
+		System.out.println(dateCheck.getText().trim());
+        LocalDateTime myDate = LocalDateTime.now();
+        DateTimeFormatter myformatdate= DateTimeFormatter.ofPattern("dd.MMM.yyyy");
+        formateDate=myDate.format(myformatdate);
+        System.out.println("localDate formated"+formateDate);
+		Assert.assertEquals(formateDate,dateCheck.getText().trim());
+		
 		WebElement uploadflag = driver.findElement(By.xpath("//div[@class='tag ng-binding ng-scope']"));
 		System.out.println(uploadflag.getText().trim());
 
 		Assert.assertEquals("Attachment Upload", uploadflag.getText().trim());
 //End Visit
 		Reporter.log("TC4- Verify Attachment tag");
-		this.takeSnapShot(driver, destpath+"TC14.jpeg");
-		
-}
-@Test(priority=17)
-public void Endvisit() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
-		driver.findElement(By.xpath("//i[@class='icon-off']")).click();
+		this.takeSnapShot(driver, destpath + "TC14.jpeg");
 
+	}
+
+	@Test(priority = 15)
+	public void Endvisit() throws Exception {
+		Thread.sleep(300);
+		driver.findElement(By.xpath("(//i[@class='icon-off'])[2]")).click();
+		Thread.sleep(300);
 		driver.findElement(By.xpath("//*[@id='end-visit-dialog']/div[2]/button[1]")).click();
 		Reporter.log("TC15- End Visit");
-		this.takeSnapShot(driver, destpath+"TC15.jpeg");
+		this.takeSnapShot(driver, destpath + "TC15.jpeg");
+
+	}
+
+	@Test(priority = 16)
+	public void Startvisit() throws Exception {
+		Thread.sleep(300);
 		
-}
-@Test(priority=18)
-public void Startvisit() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		// Start Visit
-		driver.findElement(By.xpath("//[@id=\"org.openmrs.module.coreapps.createVisit\"]/div/div[2]")).click();
-		driver.findElement(By.xpath("//[@id=\"start-visit-with-visittype-confirm\"]")).click();
+		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createVisit\"]/div/div[2]")).click();
+		driver.findElement(By.xpath("//*[@id=\"start-visit-with-visittype-confirm\"]")).click();
 //Click Vitals
 		driver.findElement(By.xpath("//*[@id=\"referenceapplication.realTime.vitals\"]")).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		Reporter.log("TC16- Start Visit & capture Vitals");
-		this.takeSnapShot(driver, destpath+"TC16.jpeg");
-}
+		this.takeSnapShot(driver, destpath + "TC16.jpeg");
+	}
+
 //Enter Height
-public void EnterVitals() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+	@Test(priority = 17)
+	public void EnterVitals() throws Exception {
+		Thread.sleep(300);
+		System.out.println("Enter vitals");
 		driver.findElement(By.xpath("//*[@id=\"w8\"]")).click();
 
-		driver.findElement(By.xpath("//[@id=\"w8\"]")).sendKeys(height);
-		driver.findElement(By.xpath("//[@id='next-button']/icon")).click();
+		driver.findElement(By.xpath("//*[@id=\"w8\"]")).sendKeys(String.valueOf(height));
+		driver.findElement(By.xpath("//*[@id='next-button']/icon")).click();
 		driver.findElement(By.xpath("//*[@id=\"w10\"]")).click();
-		driver.findElement(By.xpath("//[@id=\"w10\"]")).sendKeys(weight);
-		driver.findElement(By.xpath("//[@id='next-button']/icon")).click();
+		driver.findElement(By.xpath("//*[@id=\"w10\"]")).sendKeys(String.valueOf(weight));
+		driver.findElement(By.xpath("//*[@id='next-button']/icon")).click();
 
 		// BMI Check
 
@@ -428,35 +461,33 @@ public void EnterVitals() throws Exception {
 
 		System.out.println(bmiCheck.getText().trim());
 		String ExpectedbmiCheck = bmiCheck.getText().trim();
-
-		double bmi = ( (Integer.parseInt(weight) / ((Integer.parseInt(height) * Integer.parseInt(height)) / 10000)));
-		 finalBMI = String.format("%.1f", bmi);
+		double tempvalue=(height*height);
+		double bmi = weight / ((tempvalue) / 10000);
+		finalBMI = String.format("%.1f", bmi);
 
 		System.out.println("Calculated bmi is" + finalBMI);
-
-		Thread.sleep(50);
-
 		driver.findElement(By.xpath("//*[@id='next-button']/icon")).click();
 		Assert.assertEquals(finalBMI, ExpectedbmiCheck);
 		Reporter.log("TC17- Enter and Verify Vitals info");
-		this.takeSnapShot(driver, destpath+"TC17.jpeg");
-}
+		this.takeSnapShot(driver, destpath + "TC17.jpeg");
+	}
 
-@Test(priority=19)
-public void ClickSaveForm() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+	@Test(priority = 18)
+	public void ClickSaveForm() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		// Click Save Form
 		driver.findElement(By.xpath("//*[@id=\"save-form\"]")).click();
 		driver.findElement(By.xpath(" //*[@id=\"confirmationQuestion\"]/p[1]/button")).click();
 		Reporter.log("TC18-Click Save Form");
-		this.takeSnapShot(driver, destpath+"TC18.jpeg");
+		this.takeSnapShot(driver, destpath + "TC18.jpeg");
 
-}
-		// Click End Visit
-@Test(priority=20)
-public void EndVist() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+	}
+
+	// Click End Visit
+	@Test(priority = 19)
+	public void EndVist() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		driver.findElement(By.xpath("//i[@class='icon-off']")).click();
 		driver.findElement(By.xpath("//*[@id='end-visit-dialog']/div[2]/button[1]")).click();
@@ -466,11 +497,12 @@ public void EndVist() throws Exception {
 
 		driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/div/div[1]/h1")).click();
 		Reporter.log("TC19-EndVist");
-		this.takeSnapShot(driver, destpath+"TC19.jpeg");
-}
-@Test(priority=21)
-public void VerifyVitalsPDScreen() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC19.jpeg");
+	}
+
+	@Test(priority = 20)
+	public void VerifyVitalsPDScreen() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		// Verify Height
 
 		WebElement VerfiyH = driver.findElement(By.xpath("//*[@id=\"height\"]/span[1]"));
@@ -478,7 +510,7 @@ public void VerifyVitalsPDScreen() throws Exception {
 
 		String Expectedheight = VerfiyH.getText().trim();
 
-		Assert.assertEquals(Expectedheight, VerfiyH.getText().trim());
+		Assert.assertEquals(String.valueOf(height), Expectedheight);
 
 		// Verify weight
 
@@ -486,24 +518,21 @@ public void VerifyVitalsPDScreen() throws Exception {
 		System.out.println(Verfiyw.getText().trim());
 		String Expectedweight = Verfiyw.getText().trim();
 
-		Assert.assertEquals(Expectedweight, Verfiyw.getText().trim());
+		Assert.assertEquals(String.valueOf(weight),Expectedweight);
 		// Verify BMI
 		WebElement Verfiybmi = driver.findElement(By.xpath("//*[@id=\"calculated-bmi\"]"));
 
 		System.out.println(Verfiybmi.getText().trim());
 
 		Assert.assertEquals(finalBMI, Verfiybmi.getText().trim());
-		
+
 		Reporter.log("TC20- Verify Vitals In PD Screen");
-		this.takeSnapShot(driver, destpath+"TC20.jpeg");
-}
-@Test(priority=22)
-public void VitalTag() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC20.jpeg");
+	}
 
-		// Verfiy Recent Visit has one more new entry for current date with Vitalstag
-
-		// to be check T
+	@Test(priority = 21)
+	public void VitalTag() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		WebElement Vitalstag = driver.findElement(By.xpath("//div[@class='tag ng-binding ng-scope'][1]"));
 		System.out.println(Vitalstag.getText().trim());
@@ -511,15 +540,16 @@ public void VitalTag() throws Exception {
 
 		WebElement VitalstagdateCheck = driver.findElement(By.xpath("//a[@class='ng-binding']"));
 		System.out.println(VitalstagdateCheck.getText().trim());
-		Assert.assertEquals(today, VitalstagdateCheck.getText().trim());
+		Assert.assertEquals(formateDate, VitalstagdateCheck.getText().trim());
 
 		Reporter.log("TC21- Vital Tage Verification");
-		this.takeSnapShot(driver, destpath+"TC21.jpeg");		
-}
-		// Merge Visit
-@Test(priority=23)
-public void MergeVisit() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC21.jpeg");
+	}
+
+	// Merge Visit
+	@Test(priority = 22)
+	public void MergeVisit() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.mergeVisits\"]/div/div[1]/i")).click();
 
@@ -527,65 +557,69 @@ public void MergeVisit() throws Exception {
 		driver.findElement(By.xpath("/html/body/div/div[3]/form/table/tbody/tr[2]/td[1]/input")).click();
 
 		// click on Merge SelectedVisits button
-		driver.findElement(By.xpath("//*[@id-\"mergeVisitsBtn\"]")).click();
+		driver.findElement(By.xpath("//*[@id=\"mergeVisitsBtn\"]")).click();
 
 		Reporter.log("TC22- Merge Visit");
-		this.takeSnapShot(driver, destpath+"TC22.jpeg");
-}
-@Test(priority=24)
-public void RedirectPDscreen1() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC22.jpeg");
+	}
+
+	@Test(priority = 23)
+	public void RedirectPDscreen1() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		// Redirect to patient details page by clicking on Return button
 
-		driver.findElement(By.xpath("//*[@id-\"content\"]/form/div/input[1]")).click();
+		driver.findElement(By.xpath("//*[@id=\"content\"]/form/div/input[1]")).click();
 		Reporter.log("TC23-Redirect PD screen after Merge Visit ");
-		this.takeSnapShot(driver, destpath+"TC23.jpeg");
-}	
-@Test(priority=25)
-public void MergeTagCheck() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC23.jpeg");
+	}
+
+	@Test(priority = 24)
+	public void MergeTagCheck() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		// Verfiy Recent Visit has become one entry for current date withVitals,
 		// Attachment Upload tag.
 		WebElement VitalsAttachmenttag = driver.findElement(By.xpath("//div[@class='tag ng-binding ng-scope']"));
 
 		System.out.println(VitalsAttachmenttag.getText().trim());
 
-		Assert.assertEquals("Vitals, Attachment Upload", VitalsAttachmenttag.getText().trim());
+		Assert.assertEquals(Mergetag, VitalsAttachmenttag.getText().trim());
 		Reporter.log("TC24- Merge Tag Check");
-		this.takeSnapShot(driver, destpath+"TC24.jpeg");
-}
-	
-@Test(priority=26)
-public void AddPastVist() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC24.jpeg");
+	}
+
+	@Test(priority = 25)
+	public void AddPastVist() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createRetrospectiveVisit\"]/div/div[1]/i"))
 				.click();
 //Date Picker
 		WebElement datewidgetFrom = driver.findElement(By.xpath("/html/body/div[2]/div[3]"));
-		
+
 		List<WebElement> columns = datewidgetFrom.findElements(By.tagName("td"));
 		// System.out.println("Date" +columns.indexOf (columns));
 		Reporter.log("TC25- DatePicker Check");
-		this.takeSnapShot(driver, destpath+"TC25.jpeg");
-}
-@Test(priority=27)
-public void RedirectPDScreen2() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC25.jpeg");
+	}
+
+	@Test(priority = 26)
+	public void RedirectPDScreen2() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		driver.findElement(By.xpath("//*[@id=\"retrospective-visit-creation-dialog\"]/div[2]/button[1]")).click();
 		// pick Pickpatient10 for using deletion
 		Reporter.log("TC26- Redirect to PD Screen after DatePicker Check");
-		this.takeSnapShot(driver, destpath+"TC26.jpeg");
-}
-@Test(priority=28)
-public void DeletePatient() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC26.jpeg");
+	}
+
+	@Test(priority = 27)
+	public void DeletePatient() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		WebElement PickpatientID = driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[2]/div/span"));
 		System.out.println(PickpatientID.getText().trim());
 
-		 PID = PickpatientID.getText().trim();
+		PID = PickpatientID.getText().trim();
 		// Click on Delete Patient and provide the reason.
 
-		driver.findElement(By.xpath("//*[@id=\"org.openers.module.coreapps.deletePatient\"]/div/div[1]/1")).click();
+		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.deletePatient\"]/div/div[1]/i")).click();
 
 		WebElement Deletereason = driver.findElement(By.xpath("//*[@id=\"delete-reason\"]"));
 		Deletereason.click();
@@ -593,12 +627,13 @@ public void DeletePatient() throws Exception {
 
 		driver.findElement(By.xpath("//*[@id=\"delete-patient-creation-dialog\"]/div[2]/button[1]")).click();
 		Reporter.log("TC27- Delete patient");
-		this.takeSnapShot(driver, destpath+"TC27.jpeg");
-}
-@Test(priority=29)
-public void DeletePatientToastermsg() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
-	
+		this.takeSnapShot(driver, destpath + "TC27.jpeg");
+	}
+
+	@Test(priority = 29)
+	public void DeletePatientToastermsg() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+
 		// Click on confirm button and verify the toaster message.
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -613,12 +648,13 @@ public void DeletePatientToastermsg() throws Exception {
 
 		Thread.sleep(500);
 		Reporter.log("TC28- Delete patient toaster message Check");
-		this.takeSnapShot(driver, destpath+"TC28.jpeg");
-}
-		// patientID Search
-@Test(priority=30)
-public void patientIDSearch() throws Exception {
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+		this.takeSnapShot(driver, destpath + "TC28.jpeg");
+	}
+
+	// patientID Search
+	@Test(priority = 28)
+	public void patientIDSearch() throws Exception {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
 		WebElement SearchpatientID = driver.findElement(By.xpath("//*[@id=\"patient-search\"]"));
 		SearchpatientID.sendKeys(PID);
@@ -633,6 +669,7 @@ public void patientIDSearch() throws Exception {
 		System.out.println(Deletedrecordchk.getText().trim());
 		Assert.assertEquals("No matching records found", Deletedrecordchk.getText().trim());
 		Reporter.log("TC28- Delete patient toaster message Check");
-		this.takeSnapShot(driver, destpath+"TC28.jpeg");
+		this.takeSnapShot(driver, destpath + "TC28.jpeg");
+		driver.close();
 	}
 }

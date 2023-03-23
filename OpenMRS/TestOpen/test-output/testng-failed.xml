@@ -5,31 +5,8 @@
     <classes>
       <class name="webapp.Testsuite">
         <methods>
-          <include name="VerifyVitalsPDScreen"/>
-          <include name="patientdetailsscreen"/>
-          <include name="verifyDemographics"/>
-          <include name="MergeVisit"/>
-          <include name="Attachmentupload"/>
-          <include name="Verifyattachment"/>
-          <include name="takeSnapShot"/>
-          <include name="RedirectPDscreen"/>
-          <include name="AddPastVist"/>
-          <include name="DeletePatient"/>
-          <include name="RedirectPDscreen1"/>
-          <include name="EndVist"/>
-          <include name="VitalTag"/>
-          <include name="Endvisit"/>
-          <include name="Startvisit"/>
           <include name="Demographicsinfo"/>
-          <include name="verifyattachmenttag"/>
-          <include name="ClickSaveForm"/>
-          <include name="DeletePatientToastermsg"/>
-          <include name="RedirectPDScreen2"/>
-          <include name="verifytoastermsg"/>
-          <include name="registerpatient"/>
-          <include name="StartVisit"/>
-          <include name="MergeTagCheck"/>
-          <include name="patientIDSearch"/>
+          <include name="driversetup"/>
         </methods>
       </class> <!-- webapp.Testsuite -->
     </classes>

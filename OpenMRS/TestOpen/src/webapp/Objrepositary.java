@@ -4,6 +4,7 @@ public class Objrepositary {
 
 	String PID;
 	String finalBMI;
+	String formateDate;
 	String usrname="Admin";
 	String appurl="https://qa-refapp.openmrs.org/openmrs/login.htm";
 	String password="Admin123";
@@ -11,8 +12,9 @@ public class Objrepositary {
 	String gender="Male";
 	String patientmiddelname="K";
 	String patientfamilyname="King";
-	String DOBday="22,";
-	String Month="May,";
+	String DOBday="22";
+	String Month="May";
+	String Monthint="5";
 	String DOByear="2002";
 	String Address1="First Street Ch";
 	String Address2="Covai";
@@ -23,11 +25,13 @@ public class Objrepositary {
 	String phone="1234567891";
 	String uploadtext="Testing purpose";
 	String today ="16.Mar.2023";
-	
-	String height="170";
-	String weight ="72";
+	String pdpagetext="General Actions";
+	int height=170;
+	int weight =72;
 	String destpath ="E:\\New folder\\";
-	
+	String actualtoastmsg ="The attachment was successfully uploaded.";
+	String ExpectedAlert = "Logged in as Super User (admin) at Registration Desk.";
+	String Mergetag="Vitals, Attachment Upload";
 	
 	
 }

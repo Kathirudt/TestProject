@@ -43,8 +43,8 @@ public class Testsuite extends Objrepositary {
 		o.addArguments("--remote-allow-origins=*");
 		o.setAcceptInsecureCerts(true);
 		// o.setExperimentalOption("debuggerAddress", "localhost:49433");
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver(o);
+		//WebDriverManager.chromedriver().setup();
+		 driver = new ChromeDriver(o);
 
 		/*
 		 * Capabilities c = driver.getCapabilities(); Map<String, Object> m = c.asMap();
@@ -593,13 +593,30 @@ public class Testsuite extends Objrepositary {
 		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createRetrospectiveVisit\"]/div/div[1]/i"))
 				.click();
 //Date Picker
-		WebElement datewidgetFrom = driver.findElement(By.xpath("/html/body/div[2]/div[3]"));
-
-		List<WebElement> columns = datewidgetFrom.findElements(By.tagName("td"));
-		// System.out.println("Date" +columns.indexOf (columns));
+		String DOBdayd="25";
+		String Monthdd="March";
+		String DOByeard="2023";
+		String sysmonth= Monthdd+" "+DOByeard;
+		System.out.println("Cal Month:"+sysmonth);
+		
+		System.out.println("Enter into date Picker");
+	    WebElement datepickerm=driver.findElement(By.xpath("/html/body/div[3]/div[3]/table/thead/tr[1]/th[2]"));
+	    String dd=datepickerm.getText();
+	    System.out.println("Enter into date Picker month value:"+datepickerm.getText());
+	    if(dd.equals(sysmonth))
+		{
+	    		    
+	    WebElement futuredatedp=driver.findElement(By.xpath("/html/body/div[3]/div[3]/table/tbody//tr//td[contains(text(),'25')]"));	
+	   System.out.println(futuredatedp.getText());
+	    System.out.println("Boolean Value"+futuredatedp.isSelected());
+	   Assert.assertEquals(false,futuredatedp.isSelected());
+	   
+	  
 		Reporter.log("TC25- DatePicker Check");
 		this.takeSnapShot(driver, destpath + "TC25.jpeg");
-	}
+		}
+		}
+	
 
 	@Test(priority = 26)
 	public void RedirectPDScreen2() throws Exception {
@@ -667,9 +684,10 @@ public class Testsuite extends Objrepositary {
 		WebElement Deletedrecordchk = driver
 				.findElement(By.xpath("//*[@id=\"patient-search-results-table\"]/tbody/tr/td"));
 		System.out.println(Deletedrecordchk.getText().trim());
+		Thread.sleep(500);
 		Assert.assertEquals("No matching records found", Deletedrecordchk.getText().trim());
 		Reporter.log("TC28- Delete patient toaster message Check");
 		this.takeSnapShot(driver, destpath + "TC28.jpeg");
-		driver.close();
+	
 	}
-}
+	}

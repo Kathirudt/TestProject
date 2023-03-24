@@ -495,7 +495,11 @@ public class Testsuite extends Objrepositary {
 		// redirect to Patient details page
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 
-		driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/div/div[1]/h1")).click();
+		try {
+			driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/div/div[1]/h1")).click();
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//*[@id=\"content\"]/div[6]/div[1]/div/div[1]/h1")).click();
+		}
 		Reporter.log("TC19-EndVist");
 		this.takeSnapShot(driver, destpath + "TC19.jpeg");
 	}

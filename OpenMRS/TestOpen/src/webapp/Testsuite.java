@@ -34,6 +34,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class Testsuite extends Objrepositary {
 
 	public static ChromeDriver driver;
+	LocalDate curDate = LocalDate.now();
 
 	@BeforeTest
 
@@ -43,8 +44,8 @@ public class Testsuite extends Objrepositary {
 		o.addArguments("--remote-allow-origins=*");
 		o.setAcceptInsecureCerts(true);
 		// o.setExperimentalOption("debuggerAddress", "localhost:49433");
-		//WebDriverManager.chromedriver().setup();
-		 driver = new ChromeDriver(o);
+
+		driver = new ChromeDriver(o);
 
 		/*
 		 * Capabilities c = driver.getCapabilities(); Map<String, Object> m = c.asMap();
@@ -115,7 +116,7 @@ public class Testsuite extends Objrepositary {
 		if (dashboardalert != null) {
 			dashboardalert.getText();
 			System.out.println("Actual Alert message:" + dashboardalert.getText());
-	
+
 			Assert.assertEquals(dashboardalert.getText(), ExpectedAlert);
 		} else {
 			System.out.println("Application is not logged in. Please try again");
@@ -124,17 +125,18 @@ public class Testsuite extends Objrepositary {
 
 		Reporter.log("TC4- Application is logged Successfully");
 		this.takeSnapShot(driver, destpath + "TC4.jpeg");
-		
+
 	}
 
-	@Test(priority=5)
+	@Test(priority = 5)
 	public void registerp() throws Exception {
-		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
 		System.out.println("Get into homepage");
-		//driver.findElement(By.id("reference application-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerpatient-homepageLink-extension")).click();
-			WebElement regbutton= driver.findElement(By.xpath("(//a[@type='button'])[4]"));
-			regbutton.click();
-		
+		// driver.findElement(By.id("reference
+		// application-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerpatient-homepageLink-extension")).click();
+		WebElement regbutton = driver.findElement(By.xpath("(//a[@type='button'])[4]"));
+		regbutton.click();
+
 		Reporter.log("TC5- Clicked on Register Patient");
 		this.takeSnapShot(driver, destpath + "TC5.jpeg");
 
@@ -159,6 +161,7 @@ public class Testsuite extends Objrepositary {
 		FamilyName.click();
 		FamilyName.sendKeys(patientfamilyname);
 		WebElement NextButton = driver.findElement(By.xpath("//*[@id=\"next-button\"]/icon"));
+		Thread.sleep(100);
 		NextButton.click();
 		driver.findElement(By.xpath("//*[@id=\"gender-field\"]/option[1]")).click();
 		NextButton.click();
@@ -226,55 +229,51 @@ public class Testsuite extends Objrepositary {
 		System.out.println("Final Review Submitted");
 		WebElement NameVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[1]"));
 		System.out.println(NameVerification.getText());
-		
-		List<String> listname=Arrays.asList("Name: "+patientname,patientmiddelname,patientfamilyname);
-		String str =listname.stream().collect(Collectors.joining(", "));
+
+		List<String> listname = Arrays.asList("Name: " + patientname, patientmiddelname, patientfamilyname);
+		String str = listname.stream().collect(Collectors.joining(", "));
 		System.out.println(str);
 		Assert.assertEquals(str, NameVerification.getText());
 
 		WebElement GenderVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[2]"));
 		System.out.println(GenderVerification.getText());
 
-
-		List<String> listgender=Arrays.asList("Gender: "+gender);
-		String actualresultgender =listgender.stream().collect(Collectors.joining(", "));
+		List<String> listgender = Arrays.asList("Gender: " + gender);
+		String actualresultgender = listgender.stream().collect(Collectors.joining(", "));
 		System.out.println(actualresultgender);
-		
+
 		Assert.assertEquals(actualresultgender, GenderVerification.getText());
 
 		WebElement dobVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[3]"));
 		System.out.println(dobVerification.getText());
-			
-		List<String> listdob=Arrays.asList("Birthdate: "+DOBday,Month,DOByear);
-		String actualresultDOB =listdob.stream().collect(Collectors.joining(", "));
+
+		List<String> listdob = Arrays.asList("Birthdate: " + DOBday, Month, DOByear);
+		String actualresultDOB = listdob.stream().collect(Collectors.joining(", "));
 		System.out.println(actualresultDOB);
-		
-		
+
 		Assert.assertEquals(actualresultDOB, dobVerification.getText());
 
 		WebElement addVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[4]"));
 		System.out.println(addVerification.getText());
-		
-		
-		List<String> listadd=Arrays.asList("Address: "+Address1,Address2,city,state,country,pincode);
-		String actualresultadd =listadd.stream().collect(Collectors.joining(", "));
+
+		List<String> listadd = Arrays.asList("Address: " + Address1, Address2, city, state, country, pincode);
+		String actualresultadd = listadd.stream().collect(Collectors.joining(", "));
 		System.out.println(actualresultadd);
-		
+
 		Assert.assertEquals(actualresultadd, addVerification.getText());
 
 		WebElement phnVerification = driver.findElement(By.xpath("//*[@id=\"dataCanvas\"]/div/p[5]"));
 		System.out.println(phnVerification.getText());
-		
-		
-		List<String> listphone=Arrays.asList("Phone Number: "+phone);
-		String actualresultaphn =listphone.stream().collect(Collectors.joining(", "));
+
+		List<String> listphone = Arrays.asList("Phone Number: " + phone);
+		String actualresultaphn = listphone.stream().collect(Collectors.joining(", "));
 		System.out.println(actualresultaphn);
-		
+
 		Assert.assertEquals(actualresultaphn, phnVerification.getText());
 		Reporter.log("TC7- Verify Demographiices in confirm page Screen");
 		this.takeSnapShot(driver, destpath + "TC7.jpeg");
 	}
-	
+
 	@Test(priority = 8)
 	public void verifyage() throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
@@ -291,10 +290,10 @@ public class Testsuite extends Objrepositary {
 
 		System.out.println(DOBCheck.getText().substring(0, 3).trim());
 		String ExpectedDOBYear = DOBCheck.getText().substring(0, 3).trim();
-
+		System.out.println("ExpectedDOBYear:" + ExpectedDOBYear);
 		LocalDate dob = LocalDate.of(Integer.valueOf(DOByear), Integer.valueOf(Monthint), Integer.valueOf(DOBday));
-		LocalDate curDate = LocalDate.now();
 
+		System.out.println(curDate);
 		Period period = Period.between(dob, curDate);
 
 		System.out.println(period.getYears());
@@ -322,39 +321,35 @@ public class Testsuite extends Objrepositary {
 	public void Attachmentupload() throws Exception {
 		System.out.println("Before uploading Attachment");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(300));
-		
-		driver.findElement(By.xpath("//*[@id=\"attachments.attachments.visitActions.default\"]")).click();
-		
 
-		
-			System.out.println("Try Upload");
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//*[@id=\"visit-documents-dropzone\"]")).click();
-			System.out.println("Try set path");
-			setClipboardData("E:\\New folder\\code.txt");
-			Robot robot = new Robot();
-			Thread.sleep(300);
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			Thread.sleep(300);
-			robot.keyPress(KeyEvent.VK_V);
-			Thread.sleep(300);
-			robot.keyRelease(KeyEvent.VK_V);
-			Thread.sleep(300);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			Thread.sleep(300);
-			robot.keyPress(KeyEvent.VK_ENTER);
-			Thread.sleep(300);
-			robot.keyRelease(KeyEvent.VK_ENTER);
-			Thread.sleep(300);
-	
-			System.out.println("Before upload");
-			
-		
-			Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"attachments.attachments.visitActions.default\"]")).click();
+
+		System.out.println("Try Upload");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"visit-documents-dropzone\"]")).click();
+		System.out.println("Try set path");
+		setClipboardData("E:\\New folder\\code.txt");
+		Robot robot = new Robot();
+		Thread.sleep(300);
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		Thread.sleep(300);
+		robot.keyPress(KeyEvent.VK_V);
+		Thread.sleep(300);
+		robot.keyRelease(KeyEvent.VK_V);
+		Thread.sleep(300);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+		Thread.sleep(300);
+		robot.keyPress(KeyEvent.VK_ENTER);
+		Thread.sleep(300);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+		Thread.sleep(300);
+
+		System.out.println("Before upload");
+
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[@id=\"att-page-main\"]/div[1]/att-file-upload/div[3]/div/div[2]/textarea"))
 				.sendKeys(uploadtext);
 
-	
 		Thread.sleep(100);
 		driver.findElement(
 				By.xpath("//*[@id=\"att-page-main\"]/div[1]/att-file-upload/div[3]/div/div[2]/span/button[1]")).click();
@@ -401,12 +396,12 @@ public class Testsuite extends Objrepositary {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 		WebElement dateCheck = driver.findElement(By.xpath("//a[@class='ng-binding']"));
 		System.out.println(dateCheck.getText().trim());
-        LocalDateTime myDate = LocalDateTime.now();
-        DateTimeFormatter myformatdate= DateTimeFormatter.ofPattern("dd.MMM.yyyy");
-        formateDate=myDate.format(myformatdate);
-        System.out.println("localDate formated"+formateDate);
-		Assert.assertEquals(formateDate,dateCheck.getText().trim());
-		
+		LocalDateTime myDate = LocalDateTime.now();
+		DateTimeFormatter myformatdate = DateTimeFormatter.ofPattern("dd.MMM.yyyy");
+		formateDate = myDate.format(myformatdate);
+		System.out.println("localDate formated" + formateDate);
+		Assert.assertEquals(formateDate, dateCheck.getText().trim());
+
 		WebElement uploadflag = driver.findElement(By.xpath("//div[@class='tag ng-binding ng-scope']"));
 		System.out.println(uploadflag.getText().trim());
 
@@ -431,7 +426,7 @@ public class Testsuite extends Objrepositary {
 	@Test(priority = 16)
 	public void Startvisit() throws Exception {
 		Thread.sleep(300);
-		
+
 		// Start Visit
 		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createVisit\"]/div/div[2]")).click();
 		driver.findElement(By.xpath("//*[@id=\"start-visit-with-visittype-confirm\"]")).click();
@@ -461,7 +456,7 @@ public class Testsuite extends Objrepositary {
 
 		System.out.println(bmiCheck.getText().trim());
 		String ExpectedbmiCheck = bmiCheck.getText().trim();
-		double tempvalue=(height*height);
+		double tempvalue = (height * height);
 		double bmi = weight / ((tempvalue) / 10000);
 		finalBMI = String.format("%.1f", bmi);
 
@@ -522,7 +517,7 @@ public class Testsuite extends Objrepositary {
 		System.out.println(Verfiyw.getText().trim());
 		String Expectedweight = Verfiyw.getText().trim();
 
-		Assert.assertEquals(String.valueOf(weight),Expectedweight);
+		Assert.assertEquals(String.valueOf(weight), Expectedweight);
 		// Verify BMI
 		WebElement Verfiybmi = driver.findElement(By.xpath("//*[@id=\"calculated-bmi\"]"));
 
@@ -597,30 +592,37 @@ public class Testsuite extends Objrepositary {
 		driver.findElement(By.xpath("//*[@id=\"org.openmrs.module.coreapps.createRetrospectiveVisit\"]/div/div[1]/i"))
 				.click();
 //Date Picker
-		String DOBdayd="25";
-		String Monthdd="March";
-		String DOByeard="2023";
-		String sysmonth= Monthdd+" "+DOByeard;
-		System.out.println("Cal Month:"+sysmonth);
-		
+
+		DateTimeFormatter myformatmmm = DateTimeFormatter.ofPattern("MMM");
+		formatemmm = curDate.format(myformatmmm);
+		String DOBdayd = ((String.valueOf(curDate.getDayOfMonth() + 1)));
+		System.out.println("DOBdayd:" + DOBdayd);
+		String Monthdd = String.valueOf(curDate.getMonth());
+		System.out.println("formatemmm:" + Monthdd);
+		String DOByeard = String.valueOf(curDate.getYear());
+		System.out.println("DOByeard:" + DOByeard);
+		String sysmonth = Monthdd + " " + DOByeard;
+		System.out.println("Cal Month:" + sysmonth);
+
 		System.out.println("Enter into date Picker");
-	    WebElement datepickerm=driver.findElement(By.xpath("/html/body/div[3]/div[3]/table/thead/tr[1]/th[2]"));
-	    String dd=datepickerm.getText();
-	    System.out.println("Enter into date Picker month value:"+datepickerm.getText());
-	    if(dd.equals(sysmonth))
-		{
-	    		    
-	    WebElement futuredatedp=driver.findElement(By.xpath("/html/body/div[3]/div[3]/table/tbody//tr//td[contains(text(),'25')]"));	
-	   System.out.println(futuredatedp.getText());
-	    System.out.println("Boolean Value"+futuredatedp.isSelected());
-	   Assert.assertEquals(false,futuredatedp.isSelected());
-	   
-	  
-		Reporter.log("TC25- DatePicker Check");
-		this.takeSnapShot(driver, destpath + "TC25.jpeg");
+		WebElement datepickerm = driver.findElement(By.xpath("/html/body/div[3]/div[3]/table/thead/tr[1]/th[2]"));
+		String dd = datepickerm.getText();
+		System.out.println("Enter into date Picker month value:" + datepickerm.getText());
+		boolean bol = dd.equalsIgnoreCase(sysmonth);
+		System.out.println(bol);
+		if (bol) {
+			// WebElement
+			// futuredatedp=driver.findElement(By.xpath("/html/body/div[3]/div[3]/table/tbody//tr//td[contains(text(),'DOBdayd')]"));
+			WebElement futuredatedp = driver.findElement(
+					By.xpath("/html/body/div[3]/div[3]/table/tbody//tr//td[contains(text()," + DOBdayd + ")]"));
+			System.out.println(futuredatedp.getText());
+			System.out.println("Boolean Value" + futuredatedp.isSelected());
+			Assert.assertEquals(false, futuredatedp.isSelected());
+
+			Reporter.log("TC25- DatePicker Check");
+			this.takeSnapShot(driver, destpath + "TC25.jpeg");
 		}
-		}
-	
+	}
 
 	@Test(priority = 26)
 	public void RedirectPDScreen2() throws Exception {
@@ -651,7 +653,7 @@ public class Testsuite extends Objrepositary {
 		this.takeSnapShot(driver, destpath + "TC27.jpeg");
 	}
 
-	@Test(priority = 29)
+	@Test(priority = 28)
 	public void DeletePatientToastermsg() throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
@@ -673,7 +675,7 @@ public class Testsuite extends Objrepositary {
 	}
 
 	// patientID Search
-	@Test(priority = 28)
+	@Test(priority = 29)
 	public void patientIDSearch() throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
 
@@ -692,6 +694,6 @@ public class Testsuite extends Objrepositary {
 		Assert.assertEquals("No matching records found", Deletedrecordchk.getText().trim());
 		Reporter.log("TC28- Delete patient toaster message Check");
 		this.takeSnapShot(driver, destpath + "TC28.jpeg");
-	
+
 	}
-	}
+}

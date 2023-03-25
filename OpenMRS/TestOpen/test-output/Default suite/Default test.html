@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>29/0/0</td>
 </tr><tr>
-<td>Started on:</td><td>Fri Mar 24 00:28:33 IST 2023</td>
+<td>Started on:</td><td>Sat Mar 25 10:21:30 IST 2023</td>
 </tr>
-<tr><td>Total time:</td><td>71 seconds (71684 ms)</td>
+<tr><td>Total time:</td><td>128 seconds (128912 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,95 +67,354 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-failed'>
-<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td width="30%"><b>Exception</b></td>
 <td width="10%"><b>Time (seconds)</b></td>
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='webapp.Testsuite.Demographicsinfo()'><b>Demographicsinfo</b><br>Test class: webapp.Testsuite</td>
-<td><div><pre>org.openqa.selenium.NoSuchElementException: Unable to find element with locator By.xpath: //*[@id=&quot;formBreadcrumb&quot;]/li[1]/ul/li[1]/span
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: &apos;4.7.1&apos;, revision: &apos;c6795baf1a3&apos;
-System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;15.0.2&apos;
-Driver info: driver.version: RemoteWebDriver
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:367)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
-	at webapp.Testsuite.Demographicsinfo(Testsuite.java:147)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
-	at org.testng.TestNG.runSuites(TestNG.java:1063)
-	at org.testng.TestNG.run(TestNG.java:1031)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</pre></div><a href='#' onClick='toggleBox("stack-trace364389956", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace364389956'><pre>org.openqa.selenium.NoSuchElementException: Unable to find element with locator By.xpath: //*[@id=&quot;formBreadcrumb&quot;]/li[1]/ul/li[1]/span
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: &apos;4.7.1&apos;, revision: &apos;c6795baf1a3&apos;
-System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;15.0.2&apos;
-Driver info: driver.version: RemoteWebDriver
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:367)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
-	at webapp.Testsuite.Demographicsinfo(Testsuite.java:147)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
-	at org.testng.TestNG.runSuites(TestNG.java:1063)
-	at org.testng.TestNG.run(TestNG.java:1031)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</pre></div></td>
-<td>63</td>
-<td>webapp.Testsuite@66f57048</td></tr>
+<td title='webapp.Testsuite.verifyattachmenttag()'><b>verifyattachmenttag</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-689140691" onClick='toggleBox("Output-689140691", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-689140691" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-689140691">
+TC4- Verify Attachment tag<br/>
+</div>
+</td>
+<td></td>
+<td>1</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.MergeVisit()'><b>MergeVisit</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1859142611" onClick='toggleBox("Output-1859142611", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1859142611" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1859142611">
+TC22- Merge Visit<br/>
+</div>
+</td>
+<td></td>
+<td>5</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.DeletePatient()'><b>DeletePatient</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1452445207" onClick='toggleBox("Output-1452445207", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1452445207" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1452445207">
+TC27- Delete patient<br/>
+</div>
+</td>
+<td></td>
+<td>1</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.locationsel()'><b>locationsel</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-801284613" onClick='toggleBox("Output-801284613", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-801284613" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-801284613">
+TC3- Pick Location and Application logged in<br/>
+</div>
+</td>
+<td></td>
+<td>3</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.StartVisit()'><b>StartVisit</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-438897070" onClick='toggleBox("Output-438897070", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-438897070" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-438897070">
+TC9- Start and Confirm Visit<br/>
+</div>
+</td>
+<td></td>
+<td>8</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.AddPastVist()'><b>AddPastVist</b><br>Test class: webapp.Testsuite</td>
+<td></td>
+<td>0</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.DeletePatientToastermsg()'><b>DeletePatientToastermsg</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-277149580" onClick='toggleBox("Output-277149580", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-277149580" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-277149580">
+TC28- Delete patient toaster message Check<br/>
+</div>
+</td>
+<td></td>
+<td>2</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.EnterVitals()'><b>EnterVitals</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-865430810" onClick='toggleBox("Output-865430810", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-865430810" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-865430810">
+TC17- Enter and Verify Vitals info<br/>
+</div>
+</td>
+<td></td>
+<td>1</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.patientIDSearch()'><b>patientIDSearch</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-99219259" onClick='toggleBox("Output-99219259", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-99219259" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-99219259">
+TC28- Delete patient toaster message Check<br/>
+</div>
+</td>
+<td></td>
+<td>5</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.RedirectPDscreen()'><b>RedirectPDscreen</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-172299409" onClick='toggleBox("Output-172299409", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-172299409" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-172299409">
+TC12- Redirect to Patient Details Screen<br/>
+</div>
+</td>
+<td></td>
+<td>3</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.registerp()'><b>registerp</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1791014677" onClick='toggleBox("Output-1791014677", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1791014677" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1791014677">
+TC5- Clicked on Register Patient<br/>
+</div>
+</td>
+<td></td>
+<td>5</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.MergeTagCheck()'><b>MergeTagCheck</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1463877470" onClick='toggleBox("Output-1463877470", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1463877470" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1463877470">
+TC24- Merge Tag Check<br/>
+</div>
+</td>
+<td></td>
+<td>0</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.RedirectPDscreen1()'><b>RedirectPDscreen1</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-630642676" onClick='toggleBox("Output-630642676", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-630642676" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-630642676">
+TC23-Redirect PD screen after Merge Visit <br/>
+</div>
+</td>
+<td></td>
+<td>3</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.EndVist()'><b>EndVist</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-609438896" onClick='toggleBox("Output-609438896", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-609438896" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-609438896">
+TC19-EndVist<br/>
+</div>
+</td>
+<td></td>
+<td>13</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.VitalTag()'><b>VitalTag</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1091233196" onClick='toggleBox("Output-1091233196", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1091233196" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1091233196">
+TC21- Vital Tage Verification<br/>
+</div>
+</td>
+<td></td>
+<td>0</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.Demographicsinfo()'><b>Demographicsinfo</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-378327915" onClick='toggleBox("Output-378327915", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-378327915" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-378327915">
+TC6- Logged Demographics Information<br/>
+</div>
+</td>
+<td></td>
+<td>7</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.openurl()'><b>openurl</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1495414981" onClick='toggleBox("Output-1495414981", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1495414981" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1495414981">
+TC1-Application Opened<br/>
+</div>
+</td>
+<td></td>
+<td>5</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.VerifyVitalsPDScreen()'><b>VerifyVitalsPDScreen</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-608174634" onClick='toggleBox("Output-608174634", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-608174634" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-608174634">
+TC20- Verify Vitals In PD Screen<br/>
+</div>
+</td>
+<td></td>
+<td>1</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.verifytoastermsg()'><b>verifytoastermsg</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-939829672" onClick='toggleBox("Output-939829672", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-939829672" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-939829672">
+TC11- Verified Toaster Message<br/>
+</div>
+</td>
+<td></td>
+<td>1</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.Attachmentupload()'><b>Attachmentupload</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1974356511" onClick='toggleBox("Output-1974356511", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1974356511" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1974356511">
+TC10- Attachment Upload<br/>
+</div>
+</td>
+<td></td>
+<td>15</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.Verifyattachment()'><b>Verifyattachment</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-92862012" onClick='toggleBox("Output-92862012", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-92862012" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-92862012">
+TC13- Verify Attachment<br/>
+</div>
+</td>
+<td></td>
+<td>2</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.verifyage()'><b>verifyage</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-974606690" onClick='toggleBox("Output-974606690", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-974606690" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-974606690">
+TC8- DOB Verification<br/>
+</div>
+</td>
+<td></td>
+<td>11</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.ClickSaveForm()'><b>ClickSaveForm</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1397643446" onClick='toggleBox("Output-1397643446", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1397643446" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1397643446">
+TC18-Click Save Form<br/>
+</div>
+</td>
+<td></td>
+<td>0</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.Enterusrpwd()'><b>Enterusrpwd</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-492947164" onClick='toggleBox("Output-492947164", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-492947164" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-492947164">
+TC2- Username and password Entered<br/>
+</div>
+</td>
+<td></td>
+<td>1</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.Startvisit()'><b>Startvisit</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-365211514" onClick='toggleBox("Output-365211514", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-365211514" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-365211514">
+TC16- Start Visit & capture Vitals<br/>
+</div>
+</td>
+<td></td>
+<td>10</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.verifydashboard()'><b>verifydashboard</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1591683105" onClick='toggleBox("Output-1591683105", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1591683105" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1591683105">
+TC4- Application is logged Successfully<br/>
+</div>
+</td>
+<td></td>
+<td>0</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.verifyDemographics()'><b>verifyDemographics</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1437107223" onClick='toggleBox("Output-1437107223", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1437107223" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1437107223">
+TC7- Verify Demographiices in confirm page Screen<br/>
+</div>
+</td>
+<td></td>
+<td>1</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.Endvisit()'><b>Endvisit</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-645777794" onClick='toggleBox("Output-645777794", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-645777794" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-645777794">
+TC15- End Visit<br/>
+</div>
+</td>
+<td></td>
+<td>3</td>
+<td>webapp.Testsuite@82de64a</td></tr>
+<tr>
+<td title='webapp.Testsuite.RedirectPDScreen2()'><b>RedirectPDScreen2</b><br>Test class: webapp.Testsuite<br/>
+<a href="#Output-1965269980" onClick='toggleBox("Output-1965269980", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-1965269980" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1965269980">
+TC26- Redirect to PD Screen after DatePicker Check<br/>
+</div>
+</td>
+<td></td>
+<td>0</td>
+<td>webapp.Testsuite@82de64a</td></tr>
 </table><p>
 </body>
 </html>

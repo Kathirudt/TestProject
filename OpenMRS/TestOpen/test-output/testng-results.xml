@@ -1,70 +1,300 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="28" total="29" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="29" passed="29" failed="0" skipped="0">
   <reporter-output>
+    <line>
+      <![CDATA[TC1-Application Opened]]>
+    </line>
+    <line>
+      <![CDATA[TC2- Username and password Entered]]>
+    </line>
+    <line>
+      <![CDATA[TC3- Pick Location and Application logged in]]>
+    </line>
+    <line>
+      <![CDATA[TC4- Application is logged Successfully]]>
+    </line>
+    <line>
+      <![CDATA[TC5- Clicked on Register Patient]]>
+    </line>
+    <line>
+      <![CDATA[TC6- Logged Demographics Information]]>
+    </line>
+    <line>
+      <![CDATA[TC7- Verify Demographiices in confirm page Screen]]>
+    </line>
+    <line>
+      <![CDATA[TC8- DOB Verification]]>
+    </line>
+    <line>
+      <![CDATA[TC9- Start and Confirm Visit]]>
+    </line>
+    <line>
+      <![CDATA[TC10- Attachment Upload]]>
+    </line>
+    <line>
+      <![CDATA[TC11- Verified Toaster Message]]>
+    </line>
+    <line>
+      <![CDATA[TC12- Redirect to Patient Details Screen]]>
+    </line>
+    <line>
+      <![CDATA[TC13- Verify Attachment]]>
+    </line>
+    <line>
+      <![CDATA[TC4- Verify Attachment tag]]>
+    </line>
+    <line>
+      <![CDATA[TC15- End Visit]]>
+    </line>
+    <line>
+      <![CDATA[TC16- Start Visit & capture Vitals]]>
+    </line>
+    <line>
+      <![CDATA[TC17- Enter and Verify Vitals info]]>
+    </line>
+    <line>
+      <![CDATA[TC18-Click Save Form]]>
+    </line>
+    <line>
+      <![CDATA[TC19-EndVist]]>
+    </line>
+    <line>
+      <![CDATA[TC20- Verify Vitals In PD Screen]]>
+    </line>
+    <line>
+      <![CDATA[TC21- Vital Tage Verification]]>
+    </line>
+    <line>
+      <![CDATA[TC22- Merge Visit]]>
+    </line>
+    <line>
+      <![CDATA[TC23-Redirect PD screen after Merge Visit ]]>
+    </line>
+    <line>
+      <![CDATA[TC24- Merge Tag Check]]>
+    </line>
+    <line>
+      <![CDATA[TC26- Redirect to PD Screen after DatePicker Check]]>
+    </line>
+    <line>
+      <![CDATA[TC27- Delete patient]]>
+    </line>
+    <line>
+      <![CDATA[TC28- Delete patient toaster message Check]]>
+    </line>
+    <line>
+      <![CDATA[TC28- Delete patient toaster message Check]]>
+    </line>
   </reporter-output>
-  <suite started-at="2023-03-24T00:28:33 IST" name="Default suite" finished-at="2023-03-24T00:29:45 IST" duration-ms="71684">
+  <suite started-at="2023-03-25T10:21:30 IST" name="Default suite" finished-at="2023-03-25T10:23:39 IST" duration-ms="128912">
     <groups>
     </groups>
-    <test started-at="2023-03-24T00:28:33 IST" name="Default test" finished-at="2023-03-24T00:29:45 IST" duration-ms="71684">
+    <test started-at="2023-03-25T10:21:30 IST" name="Default test" finished-at="2023-03-25T10:23:39 IST" duration-ms="128912">
       <class name="webapp.Testsuite">
-        <test-method is-config="true" signature="driversetup()[pri:0, instance:webapp.Testsuite@66f57048]" started-at="2023-03-24T00:28:33 IST" name="driversetup" finished-at="2023-03-24T00:28:42 IST" duration-ms="8347" status="PASS">
+        <test-method is-config="true" signature="driversetup()[pri:0, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:21:30 IST" name="driversetup" finished-at="2023-03-25T10:21:39 IST" duration-ms="8909" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- driversetup -->
-        <test-method signature="Demographicsinfo()[pri:6, instance:webapp.Testsuite@66f57048]" started-at="2023-03-24T00:28:42 IST" name="Demographicsinfo" finished-at="2023-03-24T00:29:45 IST" duration-ms="63103" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchElementException">
-            <message>
-              <![CDATA[Unable to find element with locator By.xpath: //*[@id="formBreadcrumb"]/li[1]/ul/li[1]/span
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: '4.7.1', revision: 'c6795baf1a3'
-System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: driver.version: RemoteWebDriver]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to find element with locator By.xpath: //*[@id="formBreadcrumb"]/li[1]/ul/li[1]/span
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: '4.7.1', revision: 'c6795baf1a3'
-System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: driver.version: RemoteWebDriver
-at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:367)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
-at webapp.Testsuite.Demographicsinfo(Testsuite.java:147)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:794)
-at org.testng.TestRunner.run(TestRunner.java:596)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
-at org.testng.SuiteRunner.run(SuiteRunner.java:276)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
-at org.testng.TestNG.runSuites(TestNG.java:1063)
-at org.testng.TestNG.run(TestNG.java:1031)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+        <test-method signature="openurl()[pri:1, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:21:39 IST" name="openurl" finished-at="2023-03-25T10:21:45 IST" duration-ms="5736" status="PASS">
           <reporter-output>
+            <line>
+              <![CDATA[TC1-Application Opened]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- openurl -->
+        <test-method signature="Enterusrpwd()[pri:2, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:21:45 IST" name="Enterusrpwd" finished-at="2023-03-25T10:21:46 IST" duration-ms="1011" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC2- Username and password Entered]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- Enterusrpwd -->
+        <test-method signature="locationsel()[pri:3, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:21:46 IST" name="locationsel" finished-at="2023-03-25T10:21:49 IST" duration-ms="3043" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC3- Pick Location and Application logged in]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- locationsel -->
+        <test-method signature="verifydashboard()[pri:4, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:21:49 IST" name="verifydashboard" finished-at="2023-03-25T10:21:49 IST" duration-ms="529" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC4- Application is logged Successfully]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- verifydashboard -->
+        <test-method signature="registerp()[pri:5, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:21:49 IST" name="registerp" finished-at="2023-03-25T10:21:55 IST" duration-ms="5497" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC5- Clicked on Register Patient]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- registerp -->
+        <test-method signature="Demographicsinfo()[pri:6, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:21:55 IST" name="Demographicsinfo" finished-at="2023-03-25T10:22:03 IST" duration-ms="7775" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC6- Logged Demographics Information]]>
+            </line>
           </reporter-output>
         </test-method> <!-- Demographicsinfo -->
+        <test-method signature="verifyDemographics()[pri:7, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:03 IST" name="verifyDemographics" finished-at="2023-03-25T10:22:04 IST" duration-ms="1446" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC7- Verify Demographiices in confirm page Screen]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- verifyDemographics -->
+        <test-method signature="verifyage()[pri:8, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:04 IST" name="verifyage" finished-at="2023-03-25T10:22:16 IST" duration-ms="11634" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC8- DOB Verification]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- verifyage -->
+        <test-method signature="StartVisit()[pri:9, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:16 IST" name="StartVisit" finished-at="2023-03-25T10:22:24 IST" duration-ms="8112" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC9- Start and Confirm Visit]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- StartVisit -->
+        <test-method signature="Attachmentupload()[pri:10, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:24 IST" name="Attachmentupload" finished-at="2023-03-25T10:22:39 IST" duration-ms="15559" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC10- Attachment Upload]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- Attachmentupload -->
+        <test-method signature="verifytoastermsg()[pri:11, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:39 IST" name="verifytoastermsg" finished-at="2023-03-25T10:22:41 IST" duration-ms="1359" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC11- Verified Toaster Message]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- verifytoastermsg -->
+        <test-method signature="RedirectPDscreen()[pri:12, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:41 IST" name="RedirectPDscreen" finished-at="2023-03-25T10:22:44 IST" duration-ms="3775" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC12- Redirect to Patient Details Screen]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- RedirectPDscreen -->
+        <test-method signature="Verifyattachment()[pri:13, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:44 IST" name="Verifyattachment" finished-at="2023-03-25T10:22:47 IST" duration-ms="2108" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC13- Verify Attachment]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- Verifyattachment -->
+        <test-method signature="verifyattachmenttag()[pri:14, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:47 IST" name="verifyattachmenttag" finished-at="2023-03-25T10:22:48 IST" duration-ms="1248" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC4- Verify Attachment tag]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- verifyattachmenttag -->
+        <test-method signature="Endvisit()[pri:15, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:48 IST" name="Endvisit" finished-at="2023-03-25T10:22:51 IST" duration-ms="3627" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC15- End Visit]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- Endvisit -->
+        <test-method signature="Startvisit()[pri:16, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:22:52 IST" name="Startvisit" finished-at="2023-03-25T10:23:02 IST" duration-ms="10077" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC16- Start Visit & capture Vitals]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- Startvisit -->
+        <test-method signature="EnterVitals()[pri:17, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:02 IST" name="EnterVitals" finished-at="2023-03-25T10:23:03 IST" duration-ms="1886" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC17- Enter and Verify Vitals info]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- EnterVitals -->
+        <test-method signature="ClickSaveForm()[pri:18, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:03 IST" name="ClickSaveForm" finished-at="2023-03-25T10:23:04 IST" duration-ms="774" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC18-Click Save Form]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- ClickSaveForm -->
+        <test-method signature="EndVist()[pri:19, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:04 IST" name="EndVist" finished-at="2023-03-25T10:23:18 IST" duration-ms="13470" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC19-EndVist]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- EndVist -->
+        <test-method signature="VerifyVitalsPDScreen()[pri:20, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:18 IST" name="VerifyVitalsPDScreen" finished-at="2023-03-25T10:23:19 IST" duration-ms="1031" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC20- Verify Vitals In PD Screen]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- VerifyVitalsPDScreen -->
+        <test-method signature="VitalTag()[pri:21, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:19 IST" name="VitalTag" finished-at="2023-03-25T10:23:19 IST" duration-ms="548" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC21- Vital Tage Verification]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- VitalTag -->
+        <test-method signature="MergeVisit()[pri:22, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:19 IST" name="MergeVisit" finished-at="2023-03-25T10:23:25 IST" duration-ms="5517" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC22- Merge Visit]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- MergeVisit -->
+        <test-method signature="RedirectPDscreen1()[pri:23, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:25 IST" name="RedirectPDscreen1" finished-at="2023-03-25T10:23:28 IST" duration-ms="3095" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC23-Redirect PD screen after Merge Visit ]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- RedirectPDscreen1 -->
+        <test-method signature="MergeTagCheck()[pri:24, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:28 IST" name="MergeTagCheck" finished-at="2023-03-25T10:23:29 IST" duration-ms="816" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC24- Merge Tag Check]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- MergeTagCheck -->
+        <test-method signature="AddPastVist()[pri:25, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:29 IST" name="AddPastVist" finished-at="2023-03-25T10:23:30 IST" duration-ms="892" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AddPastVist -->
+        <test-method signature="RedirectPDScreen2()[pri:26, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:30 IST" name="RedirectPDScreen2" finished-at="2023-03-25T10:23:30 IST" duration-ms="696" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC26- Redirect to PD Screen after DatePicker Check]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- RedirectPDScreen2 -->
+        <test-method signature="DeletePatient()[pri:27, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:30 IST" name="DeletePatient" finished-at="2023-03-25T10:23:32 IST" duration-ms="1219" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC27- Delete patient]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- DeletePatient -->
+        <test-method signature="DeletePatientToastermsg()[pri:28, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:32 IST" name="DeletePatientToastermsg" finished-at="2023-03-25T10:23:34 IST" duration-ms="2035" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC28- Delete patient toaster message Check]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- DeletePatientToastermsg -->
+        <test-method signature="patientIDSearch()[pri:29, instance:webapp.Testsuite@82de64a]" started-at="2023-03-25T10:23:34 IST" name="patientIDSearch" finished-at="2023-03-25T10:23:39 IST" duration-ms="5179" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[TC28- Delete patient toaster message Check]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- patientIDSearch -->
       </class> <!-- webapp.Testsuite -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
